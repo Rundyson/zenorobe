@@ -1,5 +1,6 @@
+import { imgPath } from '@/components/helpers/functions-general'
 import React from 'react'
-import { imgPath } from '../helpers/functions-general'
+
 
 const SliderItem = ({img, header, subheader}) => {
   return (

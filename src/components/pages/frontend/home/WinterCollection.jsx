@@ -2,87 +2,86 @@ import React from 'react'
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { imgPath } from '../helpers/functions-general';
+import { imgPath } from '@/components/helpers/functions-general'
 import CardItem from './CardItem';
 
 
-const NewArrival = () => {
+const WinterCollection = () => {
 
     
-    const newArrivalArray = [
+    const winterCollectionArray = [
         {
-            img1:"na-card-a2.jpg",
-            img2:"na-card-a1.jpg",
+            img1:"wc-card-a2.jpg",
+            img2:"wc-card-a1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-b2.jpg",
-            img2:"na-card-b1.jpg",
+            img1:"wc-card-b2.jpg",
+            img2:"wc-card-b1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-c2.jpg",
-            img2:"na-card-c1.jpg",
+            img1:"wc-card-c2.jpg",
+            img2:"wc-card-c1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-d2.jpg",
-            img2:"na-card-d1.jpg",
+            img1:"wc-card-d2.jpg",
+            img2:"wc-card-d1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-e2.jpg",
-            img2:"na-card-e1.jpg",
+            img1:"wc-card-e2.jpg",
+            img2:"wc-card-e1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-f2.jpg",
-            img2:"na-card-f1.jpg",
+            img1:"wc-card-f1.jpg",
+            img2:"wc-card-f2.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-g2.jpg",
-            img2:"na-card-g1.jpg",
+            img1:"wc-card-g2.jpg",
+            img2:"wc-card-g1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-h2.jpg",
-            img2:"na-card-h1.jpg",
+            img1:"wc-card-h2.jpg",
+            img2:"wc-card-h1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-i2.jpg",
-            img2:"na-card-i1.jpg",
+            img1:"wc-card-i2.jpg",
+            img2:"wc-card-i1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-j2.jpg",
-            img2:"na-card-j1.jpg",
+            img1:"wc-card-j2.jpg",
+            img2:"wc-card-j1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-k2.jpg",
-            img2:"na-card-k1.jpg",
+            img1:"wc-card-k2.jpg",
+            img2:"wc-card-k1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
         {
-            img1:"na-card-l2.jpg",
-            img2:"na-card-l1.jpg",
+            img1:"wc-card-l2.jpg",
+            img2:"wc-card-l1.jpg",
             title: "Lorem ipsum dolor sit amet.",
             price: "149.99",
         },
-
     ]
     var settings = {
         dots: true,
@@ -112,18 +111,16 @@ const NewArrival = () => {
               breakpoint: 520,
               settings: {
                 slidesToShow: 1,
-                slidesToScroll: 1
+                slidesToScroll: 1,
               }
             }
           ]
         };
-
-
   return (
     <section className="new-arrival py-10">
       <div className="container">
         <Slider {...settings}>
-            {newArrivalArray.map((item, key) => (
+            {winterCollectionArray.map((item, key) => (
             <CardItem item={item} key={key}/>
             ))}
 
@@ -133,4 +130,4 @@ const NewArrival = () => {
   )
 }
 
-export default NewArrival
+export default WinterCollection

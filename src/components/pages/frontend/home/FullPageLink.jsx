@@ -1,6 +1,7 @@
+import { imgPath } from '@/components/helpers/functions-general'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { imgPath } from '../helpers/functions-general'
+
 
 
 const FullPageLink = ({img, header, subheader}) => {

@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from '../partials/header';
-import Footer from '../partials/footer';
 import BannerSlider from './BannerSlider';
 import NewArrival from './NewArrival';
 import FullPageLink from './FullPageLink';
 import WinterCollection from './WinterCollection';
+import Header from './partials/Header';
+import Footer from './partials/Footer';
 
 
 const Home = () => {

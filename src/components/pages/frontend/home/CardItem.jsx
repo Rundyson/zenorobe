@@ -1,11 +1,12 @@
+import { imgPath } from '@/components/helpers/functions-general'
 import React from 'react'
-import { imgPath } from '../helpers/functions-general'
+
 
 const CardItem = ({item, key}) => {
   return (
     <div className="new-arrival-card px-4" key={key}>
             <div className="mb-4 relative group">
-                <p className="absolute left-3 top-3 bg-white px-4 py-1 rounded-full text-[10px] font-bold z-20 group-hover:opacity-0 transition-opacity">NEW</p>
+                <p className="absolute left-3 top-3 bg-primary px-4 py-1 rounded-full text-[10px] font-bold z-20 group-hover:opacity-0 transition-opacity">NEW</p>
                 <img
                   src={`${imgPath}/${item.img1}`}
                   alt=""
