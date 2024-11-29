@@ -1,9 +1,12 @@
 import { imgPath } from '@/components/helpers/functions-general'
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 
 const CardItem = ({item, key}) => {
+  const title = item.title;
   return (
+    <Link to={`/product/${title.toLowerCase().replaceAll(" ", "-")}`}>
     <div className="new-arrival-card px-4" key={key}>
             <div className="mb-4 relative group">
                 <p className="absolute left-3 top-3 bg-primary px-4 py-1 rounded-full text-[10px] font-bold z-20 group-hover:opacity-0 transition-opacity">NEW</p>
@@ -30,7 +33,8 @@ const CardItem = ({item, key}) => {
                     <li className="tooltip" data-tooltip="out of stock">33</li>
                 </ul>
             </div>
-            </div>
+      </div>
+      </Link>
   )
 }
 
