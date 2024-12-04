@@ -1,7 +1,7 @@
 
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Home from './components/pages/frontend/home/Home';
-import { StoreProvider } from './components/pages/backend/partials/store/storeContext';
+import { StoreProvider } from './components/store/storeContext';
 import Clothes from './components/pages/backend/clothes/Clothes';
 import LatestProducts from './components/pages/backend/latestproducts/LatestProducts';
 import Dashboard from './components/pages/backend/dashboard/Dashboard';

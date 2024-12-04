@@ -1,8 +1,8 @@
 import { Archive, X } from 'lucide-react'
 import React from 'react'
 import ModalWrapper from './ModalWrapper'
-import { StoreContext } from '@/components/pages/backend/partials/store/storeContext'
-import { setIsConfirm, setIsDelete } from '@/components/pages/backend/partials/store/storeAction'
+import { StoreContext } from '@/components/store/storeContext'
+import { setIsConfirm, setIsDelete } from '@/components/store/storeAction'
 
 const ModalConfirm = () => {
     const {dispatch} = React.useContext(StoreContext)

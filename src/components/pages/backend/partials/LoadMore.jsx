@@ -1,4 +1,4 @@
-import { StoreContext } from '@/components/pages/backend/partials/store/storeContext'
+import { StoreContext } from '@/components/store/storeContext'
 import React from 'react'
 
 const LoadMore = () => {

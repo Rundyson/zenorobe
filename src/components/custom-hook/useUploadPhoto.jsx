@@ -1,6 +1,6 @@
 import React from "react";
-import { setError, setMessage } from "../pages/backend/partials/store/storeAction.jsx";
-import { StoreContext } from "../pages/backend/partials/store/storeContext.jsx";
+import { setError, setMessage } from "../store/storeAction.jsx";
+import { StoreContext } from "../store/storeContext.jsx";
 
 const useUploadPhoto = (url) => {
   const [photo, setPhoto] = React.useState(null);

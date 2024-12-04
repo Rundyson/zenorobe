@@ -2,8 +2,8 @@ import { Trash2, X } from 'lucide-react'
 import React from 'react'
 import ModalWrapper from './ModalWrapper'
 import SpinnerButton from '../spinners/SpinnerButton'
-import { setIsAdd, setIsDelete } from '@/components/pages/backend/partials/store/storeAction'
-import { StoreContext } from '@/components/pages/backend/partials/store/storeContext'
+import { setIsAdd, setIsDelete } from '@/components/store/storeAction'
+import { StoreContext } from '@/components/store/storeContext'
 
 const ModalDelete = () => {
     const {dispatch} = React.useContext(StoreContext)

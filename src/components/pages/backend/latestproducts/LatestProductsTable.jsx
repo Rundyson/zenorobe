@@ -6,10 +6,10 @@ import TableLoader from '../partials/TableLoader'
 import IconNoData from '../partials/IconNoData'
 import SpinnerTable from '../partials/spinners/SpinnerTable'
 import Pills from '../partials/Pills'
-import { setIsAdd, setIsConfirm, setIsDelete, setIsEdit } from '@/components/pages/backend/partials/store/storeAction'
+import { setIsAdd, setIsConfirm, setIsDelete, setIsEdit } from '@/components/store/storeAction'
 import ModalDelete from '../partials/modals/ModalDelete'
 import ModalConfirm from '../partials/modals/ModalConfirm'
-import { StoreContext } from '../partials/store/storeContext'
+import { StoreContext } from '../../../store/storeContext'
 import { allClothes } from '../clothes-data'
 
 
