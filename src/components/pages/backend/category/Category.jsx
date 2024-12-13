@@ -10,15 +10,18 @@ import { StoreContext } from '../../../store/storeContext'
 import SideNavigation from '../partials/SideNavigation'
 import { Plus } from 'lucide-react'
 import ModalError from '../partials/modals/ModalError'
+import ToastSuccess from '../partials/ToastSuccess'
+
 
 const Category = () => {
     const {dispatch, store} = React.useContext(StoreContext);
-    const [itemEdit, setItemEdit] = React.useState(null);
+    const [isCategoryEdit, setIsCategoryEdit] = React.useState(null);
 
     const handleAdd = () => {
       dispatch(setIsAdd(true));
-      setItemEdit(null);
-    }
+      setIsCategoryEdit(null);
+    };
+
   return (
     <>
     <section className="layout-main">
@@ -33,7 +36,7 @@ const Category = () => {
                           <Plus size={16}/> Add New
                         </button>
                       </div>
-                      <CategoryTable setItemEdit={setItemEdit}/>
+                      <CategoryTable setIsCategoryEdit={setIsCategoryEdit}/>
                     </div>
                     <Footer/>
                 </main>
@@ -43,7 +46,7 @@ const Category = () => {
         {store.error && <ModalError/>}
         {store.success && <ToastSuccess/>}
         {/* <SpinnerWindow/> */}
-        {store.isAdd && <ModalAddCategory itemEdit={itemEdit}/>}
+        {store.isAdd && <ModalAddCategory isCategoryEdit={isCategoryEdit}/>}
     </>
   )
 }

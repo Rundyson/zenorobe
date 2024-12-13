@@ -6,31 +6,50 @@ import TableLoader from '../partials/TableLoader'
 import IconNoData from '../partials/IconNoData'
 import SpinnerTable from '../partials/spinners/SpinnerTable'
 import Pills from '../partials/Pills'
-import { setIsAdd, setIsConfirm, setIsDelete, setIsEdit } from '@/components/store/storeAction'
+import { setIsAdd, setIsArchive, setIsConfirm, setIsDelete, setIsEdit, setIsRestore } from '@/components/store/storeAction'
 import ModalDelete from '../partials/modals/ModalDelete'
 import ModalConfirm from '../partials/modals/ModalConfirm'
 import { StoreContext } from '../../../store/storeContext'
 import { allClothes } from '../clothes-data'
+import useQueryData from '@/components/custom-hook/useQueryData'
+import ModalArchive from '@/components/partials/modal/ModalArchive'
+import ModalRestore from '@/components/partials/modal/ModalRestore'
 
 
-const ClothesTable = ({setItemEdit}) => {
+const ClothesTable = ({setClothesEdit}) => {
   const {store, dispatch } = React.useContext(StoreContext);
+  const [id, setIsId] = React.useState("");
 
   let counter = 1;
 
-  const handleDelete = () => {
-    dispatch(setIsDelete(true));
-  }
-  const handleRestore = () => {
-    dispatch(setIsConfirm(true));
-  }
-  const handleArchive = () => {
-    dispatch(setIsConfirm(true));
-  }
   const handleEdit = (item) => {
     dispatch(setIsAdd(true));
-    setItemEdit(item);
-  }
+    setClothesEdit(item);
+  };
+  const handleDelete = (item) => {
+    dispatch(setIsDelete(true));
+    setIsId(item.clothes_aid);
+  };
+  const handleArchive = (item) => {
+    dispatch(setIsArchive(true));
+    setIsId(item.clothes_aid);
+  };
+  const handleRestore = (item) => {
+    dispatch(setIsRestore(true));
+    setIsId(item.clothes_aid);
+  };
+  const {
+    isFetching,
+    error,
+    data: result,
+    status,
+  } = useQueryData(
+    `/v2/clothes`, //endpoint
+    "get", //method
+    "clothes" //key
+  );
+
+
  
   return (
     <>
@@ -44,7 +63,7 @@ const ClothesTable = ({setItemEdit}) => {
                               <th>#</th>
                               <th>Status</th>
                               <th className='w-[50%]'>Title</th>
-                              <th>Clothes Category</th>
+                              <th>Category</th>
                               <th>Price</th>
                               <th></th>
                             </tr>
@@ -60,26 +79,27 @@ const ClothesTable = ({setItemEdit}) => {
                                 <IconServerError/>
                               </td>
                             </tr> */}
-                           {allClothes.map((item, key) => (
+                           {result?.count > 0 &&
+                      result.data.map((item, key) => (
                             <tr key={key}>
                             <td>{counter++}</td>
-                            <td><Pills/></td>
+                            <td><Pills isActive={item.clothes_is_active} /></td>
                             <td>{item.clothes_title}</td>
-                            <td>{item.clothes_category}</td>
+                            <td>{item.category_title}</td>
                             <td>{item.clothes_price}</td>
                             <td>
                               <ul className="table-action " >
-                                {true ? (<>
+                                {item.clothes_is_active ? (<>
                                 <li>
                                   <button className='tooltip' data-tooltip="Edit" onClick={() => handleEdit(item)}><FilePenLine /></button>
                                 </li>
-                                <li><button className='tooltip' data-tooltip="Archive" onClick={() => handleArchive()}><Archive/></button></li>
+                                <li><button className='tooltip' data-tooltip="Archive" onClick={() => handleArchive(item)}><Archive/></button></li>
                                 </>) : (<>
                                   <li>
-                                  <button className='tooltip' data-tooltip="Restore" onClick={() => handleRestore()}><ArchiveRestore /></button>
+                                  <button className='tooltip' data-tooltip="Restore" onClick={() => handleRestore(item)}><ArchiveRestore /></button>
                                   </li>
                                 <li>
-                                  <button className='tooltip' data-tooltip="Delete" onClick={() => handleDelete()}><Trash2 /></button>
+                                  <button className='tooltip' data-tooltip="Delete" onClick={() => handleDelete(item)}><Trash2 /></button>
                                   </li>
                                 </>)}
                               </ul>
@@ -92,9 +112,23 @@ const ClothesTable = ({setItemEdit}) => {
                         <LoadMore/>
                       </div>
                       </div>
-                      {store.isDelete && <ModalDelete/>}
-                      {store.isConfirm && <ModalConfirm/>}
-                      {store.isView && <ModalViewMovie movieInfo={movieInfo}/>}
+                      {store.isDelete && (
+                      <ModalDelete 
+                      setIsDelete={setIsDelete}
+                      mysqlApiDelete={`/v2/clothes/${id}`}
+                      queryKey={"clothes"}/>)}
+                      
+                      {store.isArchive && (
+                      <ModalArchive
+                      setIsArchive={setIsArchive}
+                      mysqlEndpoint={`/v2/clothes/active/${id}`}
+                      queryKey={"clothes"}/>)}
+
+                      {store.isRestore && (
+                      <ModalRestore
+                      setIsRestore={setIsRestore}
+                      mysqlEndpoint={`/v2/clothes/active/${id}`}
+                      queryKey={"clothes"}/>)}
         </>  
   )
  

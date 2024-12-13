@@ -5,9 +5,11 @@ import FullPageLink from './FullPageLink';
 import WinterCollection from './WinterCollection';
 import Header from './partials/Header';
 import Footer from './partials/Footer';
+import useQueryData from '@/components/custom-hook/useQueryData';
 
 
 const Home = () => {
+  
   return (
     <>
         <Header/>

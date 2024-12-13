@@ -10,14 +10,15 @@ import { StoreContext } from '../../../store/storeContext'
 import SideNavigation from '../partials/SideNavigation'
 import { Plus } from 'lucide-react'
 import ModalError from '../partials/modals/ModalError'
+import ToastSuccess from '../partials/ToastSuccess'
 
 const Clothes = () => {
     const {dispatch, store} = React.useContext(StoreContext);
-    const [itemEdit, setItemEdit] = React.useState(null);
+    const [clothesEdit, setClothesEdit] = React.useState(null);
 
     const handleAdd = () => {
       dispatch(setIsAdd(true));
-      setItemEdit(null);
+      setClothesEdit(null);
     }
   return (
     <>
@@ -33,7 +34,7 @@ const Clothes = () => {
                           <Plus size={16}/> Add New
                         </button>
                       </div>
-                      <ClothesTable setItemEdit={setItemEdit}/>
+                      <ClothesTable setIsAdd={setIsAdd} setClothesEdit={setClothesEdit}/>
                     </div>
                     <Footer/>
                 </main>
@@ -43,7 +44,9 @@ const Clothes = () => {
         {store.error && <ModalError/>}
       {store.success && <ToastSuccess/>}
         {/* <SpinnerWindow/> */}
-        {store.isAdd && <ModalAddClothes itemEdit={itemEdit}/>}
+        {store.isAdd && <ModalAddClothes setIsAdd={setIsAdd}
+          clothesEdit={clothesEdit}
+          setClothesEdit={setClothesEdit}/>}
     </>
   )
 }

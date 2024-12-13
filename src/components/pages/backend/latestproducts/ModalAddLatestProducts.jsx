@@ -49,8 +49,8 @@ const ModalAddLatestProducts = ({itemEdit}) => {
 
             <Form>
 
-                <div className="modal-form h-[calc(100vh-56px)] h-full grid grid-rows-[1fr_auto]">
-                    <div className="form-wrapper p-4 max-h-[85vh] h-full overflow-y-auto custom-scroll">
+                <div className="modal-form h-[calc(100vh-56px)] grid grid-rows-[1fr_auto]">
+                    <div className="form-wrapper p-4 h-[85vh]  overflow-y-auto custom-scroll">
 
                     <div className="input-wrap">
                             <InputText 

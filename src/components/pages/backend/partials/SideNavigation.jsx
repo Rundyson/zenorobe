@@ -1,4 +1,4 @@
-import { ChartBarStacked, Clapperboard, HandPlatter, LayoutDashboard, Megaphone, Shirt, Star } from 'lucide-react'
+import { ChartBarStacked, Clapperboard, HandPlatter, LayoutDashboard, Megaphone, PictureInPicture2Icon, Shirt, Star } from 'lucide-react'
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { imgPath } from '../../../helpers/functions-general';
@@ -25,6 +25,11 @@ const SideNavigation = ({menu}) => {
             title: "Category",
             slug: "/admin/category",
             icon: <ChartBarStacked size={16}/>,
+        },
+        {
+            title: "Banner",
+            slug: "/admin/banner",
+            icon: <PictureInPicture2Icon size={16}/>,
         },
     ];
 

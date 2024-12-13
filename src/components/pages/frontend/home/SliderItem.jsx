@@ -2,6 +2,8 @@ import { imgPath } from '@/components/helpers/functions-general'
 import React from 'react'
 
 
+
+
 const SliderItem = ({img, header, subheader}) => {
   return (
     <div className="slider-item relative">

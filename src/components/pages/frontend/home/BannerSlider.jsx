@@ -3,6 +3,9 @@ import SliderItem from './SliderItem';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import useQueryData from '@/components/custom-hook/useQueryData';
+
+
 
 
 
@@ -20,13 +23,26 @@ const BannerSlider = () => {
     waitForAnimate: true,
     pauseOnHover: false,
   };
+  const {
+    isFetching,
+    error,
+    data: banner,
+    status,
+  } = useQueryData(
+    `/v2/banner`, //endpoint
+    "get", //method
+    "banner" //key
+  );
   
   return (
     <section className="banner-slider">
-    <Slider {...settings}>
-          <SliderItem img="slide-1.jpg" header="GRAPHIC TEES CAPSULE" subheader="NEW DROP"/>
-          <SliderItem img="slide-2.jpg" header="RE-STOCK WITH NEW COLORS" subheader="THE QB LOUNGE TEE"/>
-          <SliderItem img="slide-3.jpg" header="LIMITED EDITION ONLINE EXCLUSIVE" subheader="STITCHED FOOTBALL TRACKPAINT"/>
+    <Slider {...settings}
+    >
+    {banner?.count > 0 &&
+          banner.data.map((item, key) => (
+          <SliderItem img={item.banner_image} header={item.banner_title} subheader={item.banner_subtitle} key={key}/>
+        ))}
+
     </Slider>
     </section>
 

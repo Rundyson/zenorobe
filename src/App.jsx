@@ -10,10 +10,14 @@ import SetPassword from './components/pages/backend/access/SetPassword';
 import ForgotPassword from './components/pages/backend/access/ForgotPassword';
 import Category from './components/pages/backend/category/Category';
 import ProductInfo from './components/pages/frontend/product-info/ProductInfo';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Banner from './components/pages/backend/banner/Banner';
 
 
 const App = () => {
+  const queryClient = new QueryClient();
   return (
+    <QueryClientProvider client={queryClient}>
     <StoreProvider>
     <Router>
       <Routes>
@@ -22,6 +26,7 @@ const App = () => {
         <Route path="/admin/latestproducts" element={<LatestProducts/>}/>
         <Route path="/admin/dashboard" element={<Dashboard/>}/>
         <Route path="/admin/category" element={<Category/>}/>
+        <Route path="/admin/banner" element={<Banner/>}/>
         <Route path="/product/:slug" element={<ProductInfo/>}/>
 
         <Route path="/admin/login" element ={<Login/>} />
@@ -30,6 +35,7 @@ const App = () => {
       </Routes>
     </Router>
     </StoreProvider>
+    </QueryClientProvider>
   );
 }
 

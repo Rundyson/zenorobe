@@ -25,7 +25,7 @@ const LatestProducts = () => {
             <div className="layout-division">
             <SideNavigation menu="latestproducts"/>
                 <main>
-                    <Header title="LatestProducts" subtitle="Manage Latest Products"/>
+                    <Header title="Latest Products" subtitle="Manage Latest Products"/>
                     <div className="p-8">
                       <div className="flex justify-between items-center">
                         <SearchBar/>

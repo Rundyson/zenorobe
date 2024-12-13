@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import CardItem from './CardItem';
 import { Link } from 'react-router-dom';
 import { newArrivalArray } from './New-arrival-data';
+import useQueryData from '@/components/custom-hook/useQueryData';
 
 
 const NewArrival = () => {
@@ -43,6 +44,16 @@ const NewArrival = () => {
             }
           ]
         };
+        const {
+          isFetching,
+          error,
+          data: card,
+          status,
+        } = useQueryData(
+          `/v2/clothes`, //endpoint
+          "get", //method
+          "clothes" //key
+        );
 
 
   return (
@@ -50,7 +61,8 @@ const NewArrival = () => {
     <section className="new-arrival py-10">
       <div className="container">
         <Slider {...settings}>
-            {newArrivalArray.map((item, key) => (
+        {card?.count > 0 &&
+          card.data.map((item, key) => (
             <CardItem item={item} key={key}/>
             ))}
 
