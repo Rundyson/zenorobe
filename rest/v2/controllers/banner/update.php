@@ -19,10 +19,10 @@ if (array_key_exists("bannerid", $_GET)) {
   $banner->banner_datetime = date("Y-m-d H:i:s");
   checkId($banner->banner_aid);
 
-//checks current data to avoid same entries from being updated
-// $banner_name_old = checkIndex($data, 'banner_name_old');
-// compareName($banner, $banner_name_old, $banner->banner_name);
-// checkId($banner->banner_aid);
+  //checks current data to avoid same entries from being updated
+  $banner_name_old = checkIndex($data, 'banner_name_old');
+  compareName($banner, $banner_name_old, $banner->banner_title);
+  checkId($banner->banner_aid);
 
   // update
   $query = checkUpdate($banner);

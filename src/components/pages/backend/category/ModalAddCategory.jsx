@@ -19,7 +19,8 @@ import * as Yup from "Yup";
 
 const ModalAddCategory = ({ isCategoryEdit, setIsCategoryEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
-  const { uploadPhoto, handleChangePhoto, photo } = useUploadPhoto("");
+  const { uploadPhoto, handleChangePhoto, photo } =
+    useUploadPhoto("/v2/upload-photo");
   const [value, setValue] = React.useState("");
 
   const handleClose = () => {
@@ -61,6 +62,7 @@ const ModalAddCategory = ({ isCategoryEdit, setIsCategoryEdit }) => {
   const initVal = {
     category_aid: isCategoryEdit ? isCategoryEdit.category_aid : "",
     category_title: isCategoryEdit ? isCategoryEdit.category_title : "",
+    category_title_old: isCategoryEdit ? isCategoryEdit.category_title : "",
   };
 
   const yupSchema = Yup.object({
@@ -82,8 +84,8 @@ const ModalAddCategory = ({ isCategoryEdit, setIsCategoryEdit }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values) => {
-              mutation.mutate(values)
-          }}
+              mutation.mutate(values);
+            }}
           >
             {(props) => {
               return (
@@ -98,12 +100,11 @@ const ModalAddCategory = ({ isCategoryEdit, setIsCategoryEdit }) => {
                           onChange={handleChange}
                         />
                       </div>
-
-                     
                     </div>
                     <div className="form-action flex p-4 justify-end gap-3">
                       <button className="btn btn-add" type="submit">
-                        <SpinnerButton /> Save
+                        {mutation.isPending && <SpinnerButton />}
+                        {isCategoryEdit ? "Save" : "Add"}
                       </button>
                       <button
                         className="btn btn-cancel"

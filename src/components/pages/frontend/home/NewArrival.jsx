@@ -9,7 +9,7 @@ import { newArrivalArray } from './New-arrival-data';
 import useQueryData from '@/components/custom-hook/useQueryData';
 
 
-const NewArrival = () => {
+const NewArrival = ({categoryId}) => {
 
     var settings = {
         dots: true,

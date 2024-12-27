@@ -23,9 +23,9 @@ class Clothes
     public $tblclothes;
     public $tblcategory;
 
-    public $clotes_start;
-    public $clotes_total;
-    public $clotes_search;
+    public $clothes_start;
+    public $clothes_total;
+    public $clothes_search;
 
     public $category_start;
     public $category_total;
@@ -62,7 +62,6 @@ class Clothes
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "clothes_is_active" => $this->clothes_is_active,
-                "clothes_image" => $this->clothes_image,
                 "clothes_image" => $this->clothes_image,
                 "clothes_image2" => $this->clothes_image2,
                 "clothes_title" => $this->clothes_title,
@@ -119,16 +118,80 @@ class Clothes
         }
         return $query;
     }
+    // public function readAllByCategoryId()
+    // {
+    //     try {
+    //         $sql = "select * ";
+    //         $sql .= "from ";
+    //         $sql .= "{$this->tblcategory} as usersCategory, ";
+    //         $sql .= "{$this->tblclothes} as usersClothes ";
+    //         $sql .= "where usersCategory.category_aid = usersClothes.clothes_category_id ";
+    //         $sql .= "and usersCategory.category_aid = :clothes_category_id ";
+    //         $sql .= "order by usersClothes.clothes_is_active desc, ";
+    //         $sql .= "usersClothes.clothes_title asc ";
+    //         $query = $this->connection->prepare($sql);
+    //         $query->execute([
+    //             "clothes_category_id" => $this->clothes_category_id,
+    //         ]);
+    //     } catch (PDOException $ex) {
+    //         $query = false;
+    //     }
+    //     return $query;
+    // }
 
 
     public function search()
     {
         try {
-            $sql = "select * from {$this->tblclothes} ";
-            $sql .= "where clothes_title like :clothes_title ";
-            $sql .= "order by clothes_is_active desc ";
+            $sql = "select * ";
+            $sql .= "from ";
+            $sql .= "{$this->tblcategory} as searchCategory, ";
+            $sql .= "{$this->tblclothes} as searchClothes ";
+            $sql .= "where searchClothes.clothes_title like :clothes_title ";
+            $sql .= "and searchCategory.category_aid = searchClothes.clothes_category_id ";
+            $sql .= "order by clothes_is_active desc, ";
+            $sql .= "clothes_title ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "clothes_title" => "%{$this->clothes_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    public function filterActive()
+    {
+        try {
+            $sql = "select * ";
+            $sql .= "from ";
+            $sql .= "{$this->tblcategory} as searchCategory, ";
+            $sql .= "{$this->tblclothes} as searchClothes ";
+            $sql .= "where clothes_is_active = :clothes_is_active ";
+            $sql .= "and searchCategory.category_aid = searchClothes.clothes_category_id ";
+            $sql .= "order by clothes_is_active desc, ";
+            $sql .= "clothes_is_active ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "clothes_is_active" => $this->clothes_is_active,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    public function filterActiveSearch()
+    {
+        try {
+            $sql = "select * from {$this->tblclothes} ";
+            $sql .= "where clothes_is_active = :clothes_is_active ";
+            $sql .= "and clothes_title like :clothes_title ";
+            $sql .= "order by clothes_is_active desc, ";
+            $sql .= "clothes_title ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "clothes_is_active" => $this->clothes_is_active,
                 "clothes_title" => "%{$this->clothes_search}%",
             ]);
         } catch (PDOException $ex) {
@@ -162,19 +225,15 @@ class Clothes
             $sql = "update {$this->tblclothes} set ";
             $sql .= "clothes_is_active = :clothes_is_active, ";
             $sql .= "clothes_image = :clothes_image, ";
-            $sql .= "clothes_image = :clothes_image, ";
             $sql .= "clothes_image2 = :clothes_image2, ";
             $sql .= "clothes_title = :clothes_title, ";
-            $sql .= "clothes_categor_id = :clothes_category_id, ";
+            $sql .= "clothes_category_id = :clothes_category_id, ";
             $sql .= "clothes_price = :clothes_price, ";
-            $sql .= "clothes_description = :clothes_description, ";
-            $sql .= "clothes_instruction = :clothes_instruction, ";
             $sql .= "clothes_datetime = :clothes_datetime ";
             $sql .= "where clothes_aid = :clothes_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "clothes_is_active" => $this->clothes_is_active,
-                "clothes_image" => $this->clothes_image,
                 "clothes_image" => $this->clothes_image,
                 "clothes_image2" => $this->clothes_image2,
                 "clothes_title" => $this->clothes_title,
@@ -241,33 +300,15 @@ class Clothes
         return $query;
     }
 
-    // // name
-    // public function checkAssociation()
-    // {
-    //     try {
-    //         $sql = "select product_clothes_id from {$this->tblclothes} ";
-    //         $sql .= "where product_clothes_id = :product_clothes_id ";
-    //         $query = $this->connection->prepare($sql);
-    //         $query->execute([
-    //             "product_clothes_id" => $this->clothes_aid,
-    //         ]);
-    //     } catch (PDOException $ex) {
-    //         $query = false;
-    //     }
-    //     return $query;
-    // }
-
-
-    public function filterByStatus()
+    // name
+    public function checkAssociation()
     {
         try {
-            $sql = "select * ";
-            $sql .= "from {$this->tblclothes} ";
-            $sql .= "where clothes_is_active = :clothes_is_active  ";
-            $sql .= "order by clothes_is_active desc ";
+            $sql = "select product_clothes_id from {$this->tblclothes} ";
+            $sql .= "where product_clothes_id = :product_clothes_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "clothes_is_active" => $this->clothes_is_active,
+                "product_clothes_id" => $this->clothes_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -275,24 +316,5 @@ class Clothes
         return $query;
     }
 
-    public function filterByStatusAndSearch()
-    {
-        try {
-            $sql = "select * ";
-            $sql .= "from {$this->tblclothes} ";
-            $sql .= "where ";
-            $sql .= "clothes_is_active = :clothes_is_active ";
-            $sql .= "and clothes_title like :clothes_title ";
-            $sql .= "order by clothes_is_active desc, ";
-            $sql .= "clothes_title asc ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "clothes_title" => "%{$this->clothes_search}%",
-                "clothes_is_active" => $this->clothes_is_active,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
+
 }

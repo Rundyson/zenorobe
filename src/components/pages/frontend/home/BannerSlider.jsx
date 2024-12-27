@@ -1,13 +1,9 @@
-import React from 'react'
-import SliderItem from './SliderItem';
-import Slider from 'react-slick';
+import React from "react";
+import SliderItem from "./SliderItem";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import useQueryData from '@/components/custom-hook/useQueryData';
-
-
-
-
+import useQueryData from "@/components/custom-hook/useQueryData";
 
 const BannerSlider = () => {
   var settings = {
@@ -33,20 +29,22 @@ const BannerSlider = () => {
     "get", //method
     "banner" //key
   );
-  
+
   return (
     <section className="banner-slider">
-    <Slider {...settings}
-    >
-    {banner?.count > 0 &&
+      <Slider {...settings}>
+        {banner?.count > 0 &&
           banner.data.map((item, key) => (
-          <SliderItem img={item.banner_image} header={item.banner_title} subheader={item.banner_subtitle} key={key}/>
-        ))}
-
-    </Slider>
+            <SliderItem
+              img={item.banner_image}
+              header={item.banner_title}
+              subheader={item.banner_subtitle}
+              key={key}
+            />
+          ))}
+      </Slider>
     </section>
+  );
+};
 
-  )
-}
-
-export default BannerSlider
+export default BannerSlider;

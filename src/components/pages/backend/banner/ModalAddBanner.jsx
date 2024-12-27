@@ -15,7 +15,7 @@ import useQueryData from '@/components/custom-hook/useQueryData'
 
 const ModalAddBanner = ({bannerEdit, setIsBannerEdit}) => {
   const {dispatch} = React.useContext(StoreContext);
-  const { uploadPhoto1, handleChangePhoto1, photo1 } = useUploadPhoto("v2/upload-photo"); 
+  const { uploadPhoto1, handleChangePhoto1, photo1 } = useUploadPhoto("/v2/upload-photo"); 
   const [value, setValue] = React.useState("");  
 
   const handleClose = () => {
@@ -66,6 +66,7 @@ const ModalAddBanner = ({bannerEdit, setIsBannerEdit}) => {
 
   const initVal = {
     banner_title: bannerEdit ? bannerEdit.banner_title : "",
+    banner_title_old: bannerEdit ? bannerEdit.banner_title : "",
     banner_subtitle: bannerEdit ? bannerEdit.banner_subtitle : "",
 
   };
@@ -102,76 +103,77 @@ const ModalAddBanner = ({bannerEdit, setIsBannerEdit}) => {
       >
         {(props) => {
           return (
-
             <Form>
-
-                <div className="modal-form h-[calc(100vh-56px)]  grid grid-rows-[1fr_auto]">
-                    <div className="form-wrapper p-4 h-[85vh] overflow-y-auto custom-scroll">
-
-                    <div className="input-wrap">
-                            <InputText 
-                            label="Title"
-                            type="text"
-                            name="banner_title"/>
-                    </div>
-                    <div className="input-wrap">
-                            <InputText 
-                            label="Sub Title"
-                            type="text"
-                            name="banner_subtitle"/>
-                    </div>
-                  
-                    <div className="input-wrap relative  group input-photo-wrap h-[150px] mb-8">
-                        <label htmlFor="">Photo</label>
-                {bannerEdit === null && photo1 === null ? (
-                  <div className="w-full border border-line rounded-md flex justify-center items-center flex-col h-full">
-                    <ImagePlusIcon
-                      size={50}
-                      strokeWidth={1}
-                      className="opacity-20 group-hover:opacity-50 transition-opacity"
-                    />
-                    <small className="opacity-20 group-hover:opacity-50 transition-opacity">
-                      Upload Photo
-                    </small>
+              <div className="modal-form h-[calc(100vh-56px)]  grid grid-rows-[1fr_auto]">
+                <div className="form-wrapper p-4 h-[85vh] overflow-y-auto custom-scroll">
+                  <div className="input-wrap">
+                    <InputText label="Title" type="text" name="banner_title" />
                   </div>
-                ) : (
-                  <img
-                    src={
-                    photo1
-                        ? URL.createObjectURL(photo1) // preview
-                        : imgPath + "/" + bannerEdit?.banner_image // check db
-                    }
-                    alt="banner photo"
-                    className={`group-hover:opacity-30 duration-200 relative object-cover h-full w-full  m-auto ${
-                      mutation.isPending
-                        ? "opacity-40 pointer-events-none"
-                        : ""
-                    }`}
-                  />
-                )}
-                <InputPhotoUpload
-                          name="photo1"
-                          type="file"
-                          id="photo1"
-                          accept="image/*"
-                          title="Upload photo"
-                          onChange={(e) => handleChangePhoto1(e)}
-                          onDrop={(e) => handleChangePhoto1(e)}
-                          className={`opacity-0 absolute top-0 right-0 bottom-0 left-0 rounded-full  m-auto cursor-pointer w-full h-full 
-                          `}
+                  <div className="input-wrap">
+                    <InputText
+                      label="Sub Title"
+                      type="text"
+                      name="banner_subtitle"
+                    />
+                  </div>
+
+                  <div className="input-wrap relative  group input-photo-wrap h-[150px] mb-8">
+                    <label htmlFor="">Photo</label>
+                    {bannerEdit === null && photo1 === null ? (
+                      <div className="w-full border border-line rounded-md flex justify-center items-center flex-col h-full">
+                        <ImagePlusIcon
+                          size={50}
+                          strokeWidth={1}
+                          className="opacity-20 group-hover:opacity-50 transition-opacity"
                         />
-                    </div>
-
-
-                    </div>
-                    <div className="form-action flex p-4 justify-end gap-3">
-                        <button className="btn btn-accent" type='submit'><SpinnerButton/>Save</button>
-                        <button className="btn btn-cancel" type='reset'  onClick={handleClose}>Cancel</button>
-                    </div>
+                        <small className="opacity-20 group-hover:opacity-50 transition-opacity">
+                          Upload Photo
+                        </small>
+                      </div>
+                    ) : (
+                      <img
+                        src={
+                          photo1
+                            ? URL.createObjectURL(photo1) // preview
+                            : imgPath + "/" + bannerEdit?.banner_image // check db
+                        }
+                        alt="banner photo"
+                        className={`group-hover:opacity-30 duration-200 relative object-cover h-full w-full  m-auto ${
+                          mutation.isPending
+                            ? "opacity-40 pointer-events-none"
+                            : ""
+                        }`}
+                      />
+                    )}
+                    <InputPhotoUpload
+                      name="photo1"
+                      type="file"
+                      id="photo1"
+                      accept="image/*"
+                      title="Upload photo"
+                      onChange={(e) => handleChangePhoto1(e)}
+                      onDrop={(e) => handleChangePhoto1(e)}
+                      className={`opacity-0 absolute top-0 right-0 bottom-0 left-0 rounded-full  m-auto cursor-pointer w-full h-full 
+                          `}
+                    />
+                  </div>
                 </div>
-
-              </Form>
-            );
+                <div className="form-action flex p-4 justify-end gap-3">
+                  <button className="btn btn-accent" type="submit">
+                    {mutation.isPending && <SpinnerButton />}
+                    {bannerEdit ? "Save" : "Add"}
+                  </button>
+                  <button
+                    className="btn btn-cancel"
+                    type="reset"
+                    onClick={handleClose}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </Form>
+          );
           }}
         </Formik>
 

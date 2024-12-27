@@ -1,24 +1,25 @@
 import React from "react";
 import { setError, setMessage } from "../store/storeAction.jsx";
 import { StoreContext } from "../store/storeContext.jsx";
+import { devApiUrl } from "../helpers/functions-general.jsx";
 
 const useUploadPhoto = (url) => {
   const [photo1, setPhoto1] = React.useState(null);
   const [photo2, setPhoto2] = React.useState(null);
   const { dispatch } = React.useContext(StoreContext);
   const uploadPhoto1 = async () => {
-    // if (photo) {
-    //   const fd = new FormData();
-    //   fd.append("photo", photo);
-    //   const data = await fetchFormData(devApiUrl + url, fd);
-    // }
+    if (photo1) {
+      const fd = new FormData();
+      fd.append("photo", photo1);
+      const data = await fetchFormData(devApiUrl + url, fd);
+    }
   };
   const uploadPhoto2 = async () => {
-    // if (photo) {
-    //   const fd = new FormData();
-    //   fd.append("photo", photo);
-    //   const data = await fetchFormData(devApiUrl + url, fd);
-    // }
+    if (photo2) {
+      const fd = new FormData();
+      fd.append("photo", photo2);
+      const data = await fetchFormData(devApiUrl + url, fd);
+    }
   };
   const handleChangePhoto1 = (e) => {
     console.log(e.target.files[0]);

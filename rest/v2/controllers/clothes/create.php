@@ -21,7 +21,7 @@ $clothes->clothes_datetime = date("Y-m-d H:i:s");
 
 
 
-// isNameExist($clothes, $clothes->clothes_title);
+isNameExist($clothes, $clothes->clothes_title);
 
 $query = checkCreate($clothes);
 returnSuccess($clothes, "clothes", $query);

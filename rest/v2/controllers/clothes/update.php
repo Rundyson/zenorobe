@@ -13,12 +13,11 @@ if (array_key_exists("clothesid", $_GET)) {
     $clothes->clothes_title = checkIndex($data, "clothes_title");
     $clothes->clothes_category_id = checkIndex($data, "clothes_category_id");
     $clothes->clothes_price = checkIndex($data, "clothes_price");
-    $clothes->clothes_prep_time = checkIndex($data, "clothes_prep_time");
 
     $clothes->clothes_datetime = date("Y-m-d H:i:s");
-    $clothes_title_old = strtolower($data["clothes_title_old"]);
-    // checkId($clothes->clothes_aid);
-    compareName($clothes, $clothes_title_old, $clothes->clothes_title);
+    $clothes_name_old = checkIndex($data, 'clothes_name_old');
+    compareName($clothes, $clothes_name_old, $clothes->clothes_title);
+    checkId($clothes->clothes_aid);
 
     $query = checkUpdate($clothes);
     returnSuccess($clothes, "clothes", $query);

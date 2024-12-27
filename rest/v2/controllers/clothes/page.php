@@ -5,14 +5,14 @@ require '../../core/header.php';
 require '../../core/functions.php';
 // require 'functions.php';
 // use needed classes
-require '../../models/banner/Banner.php';
+require '../../models/clothes/Clothes.php';
 
 
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$banner = new Banner($conn);
+$clothes = new Clothes($conn);
 $response = new Response();
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
@@ -21,19 +21,19 @@ if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
     if (array_key_exists("start", $_GET)) {
         // get data
         // get task id from query string
-        $banner->banner_start = $_GET['start'];
-        $banner->banner_total = 1;
+        $clothes->clothes_start = $_GET['start'];
+        $clothes->clothes_total = 5;
         //check to see if task id in query string is not empty and is number, if not return json error
-        checkLimitId($banner->banner_start, $banner->banner_total);
+        checkLimitId($clothes->clothes_start, $clothes->clothes_total);
 
-        $query = checkReadLimit($banner);
-        $total_result = checkReadAll($banner);
+        $query = checkReadLimit($clothes);
+        $total_result = checkReadAll($clothes);
         http_response_code(200);
         checkReadQuery(
             $query,
             $total_result,
-            $banner->banner_total,
-            $banner->banner_start
+            $clothes->clothes_total,
+            $clothes->clothes_start
         );
     }
     // return 404 error if endpoint not available
